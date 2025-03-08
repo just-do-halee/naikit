@@ -74,18 +74,23 @@ export function initMessaging(context) {
    * 사이드바로 메시지 전송 (콘텐츠 스크립트에서만 호출 가능)
    * @param {string} type - 메시지 타입
    * @param {Object} payload - 메시지 데이터
+   * @returns {boolean} 전송 성공 여부
    */
   function sendToSidebar(type, payload = {}) {
     if (context !== "content") {
       throw new Error("sendToSidebar는 콘텐츠 스크립트에서만 호출 가능합니다");
     }
 
-    const sidebarWindow = document.getElementById(
-      "naikit-sidebar-frame"
-    )?.contentWindow;
+    const sidebarFrame = document.getElementById("naikit-sidebar-frame");
+    if (!sidebarFrame) {
+      console.warn("사이드바 프레임을 찾을 수 없습니다. 초기화 중일 수 있습니다.");
+      return false;
+    }
+
+    const sidebarWindow = sidebarFrame.contentWindow;
     if (!sidebarWindow) {
-      console.error("사이드바 프레임을 찾을 수 없습니다");
-      return;
+      console.error("사이드바 프레임 window에 접근할 수 없습니다");
+      return false;
     }
 
     sidebarWindow.postMessage(
@@ -97,6 +102,8 @@ export function initMessaging(context) {
       },
       "*"
     );
+    
+    return true;
   }
 
   /**

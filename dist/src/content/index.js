@@ -1,1 +1,1 @@
-(async()=>{await import(chrome.runtime.getURL("assets/src/content/index-6e967660.js"))})();
+(async()=>{await import(chrome.runtime.getURL("assets/src/content/index-bf380211.js"))})();

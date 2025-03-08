@@ -32,8 +32,8 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "assets/messaging-93e99e2b.js",
-        "assets/src/content/index-6e967660.js",
+        "assets/messaging-7f661b04.js",
+        "assets/src/content/index-bf380211.js",
         "icons/*.png",
         "sidebar.html",
         "src/sidebar/**",

@@ -129,11 +129,13 @@ export class NaiManager {
         data,
       });
 
-      // 사이드바로 변경 알림
-      this.messenger.sendToSidebar(MessageTypes.NAI_INTERFACE_CHANGED, {
-        type,
-        data,
-      });
+      // 사이드바로 변경 알림 (iframe이 존재할 때만)
+      if (document.getElementById("naikit-sidebar-frame")) {
+        this.messenger.sendToSidebar(MessageTypes.NAI_INTERFACE_CHANGED, {
+          type,
+          data,
+        });
+      }
     });
   }
 
