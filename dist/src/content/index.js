@@ -1,0 +1,1 @@
+(async()=>{await import(chrome.runtime.getURL("assets/src/content/index-ce50f830.js"))})();

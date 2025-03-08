@@ -1,0 +1,54 @@
+{
+  "manifest_version": 3,
+  "name": "NaiKit - NovelAI 이미지 생성 확장",
+  "version": "1.0.0",
+  "description": "NovelAI의 이미지 생성 인터페이스를 향상시키는 확장 프로그램",
+  "action": {
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    },
+    "default_title": "NaiKit"
+  },
+  "background": {
+    "service_worker": "serviceWorker.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.novelai.net/image*"
+      ],
+      "js": [
+        "src/content/index.js"
+      ],
+      "css": [
+        "assets/content-930b7c40.css"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "assets/messaging-93e99e2b.js",
+        "assets/src/content/index-ce50f830.js",
+        "icons/*.png",
+        "sidebar.html",
+        "src/sidebar/**",
+        "src/styles/*.css"
+      ],
+      "matches": [
+        "*://*.novelai.net/*"
+      ]
+    }
+  ],
+  "permissions": [
+    "storage",
+    "tabs"
+  ],
+  "host_permissions": [
+    "*://*.novelai.net/*"
+  ]
+}

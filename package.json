@@ -1,21 +1,24 @@
 {
-    "name": "naikit",
-    "version": "1.0.0",
-    "type": "module",
-    "description": "NovelAI 이미지 생성 확장 프로그램",
-    "author": "NaiKit Team",
-    "license": "MIT",
-    "scripts": {
-      "dev": "vite build --watch --mode development",
-      "build": "vite build",
-      "clean": "rimraf dist",
-      "package": "npm run build && cd dist && zip -r ../naikit-v$npm_package_version.zip ."
-    },
-    "dependencies": {},
-    "devDependencies": {
-      "@samrum/vite-plugin-web-extension": "^5.0.0",
-      "path": "^0.12.7",
-      "rimraf": "^5.0.1",
-      "vite": "^4.4.9"
-    }
+  "name": "naikit",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "NovelAI 이미지 생성 확장 프로그램",
+  "author": "NaiKit Team",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite build --watch --mode development",
+    "build": "vite build",
+    "clean": "rimraf dist",
+    "package": "npm run build && cd dist && zip -r ../naikit-v$npm_package_version.zip ."
+  },
+  "dependencies": {},
+  "trustedDependencies": [
+    "@samrum/vite-plugin-web-extension"
+  ],
+  "devDependencies": {
+    "@samrum/vite-plugin-web-extension": "^5.0.0",
+    "path": "^0.12.7",
+    "rimraf": "^5.0.1",
+    "vite": "^4.4.9"
   }
+}
