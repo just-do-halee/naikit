@@ -1,0 +1,460 @@
+// src/sidebar/sidebar.html /** * 사이드바 HTML 구조 * 이 파일은
+public/sidebar.html로 복사되어야 함 */ `
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NaiKit 사이드바</title>
+    <style>
+      :root {
+        --naikit-bg-primary: #1f1f2f;
+        --naikit-bg-secondary: #2c2c44;
+        --naikit-bg-tertiary: #3c3c64;
+        --naikit-text-primary: #ffffff;
+        --naikit-text-secondary: #ccccdd;
+        --naikit-accent: #5c78ff;
+        --naikit-accent-hover: #7888ff;
+        --naikit-border: #404060;
+        --naikit-error: #ff6b6b;
+        --naikit-success: #51cf66;
+
+        --naikit-wildcard: #3a86ff;
+        --naikit-keyword: #ff006e;
+        --naikit-weight-increase: #8ecae6;
+        --naikit-weight-decrease: #fd8a8a;
+        --naikit-inline-wildcard: #ffb703;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--naikit-bg-primary);
+        color: var(--naikit-text-primary);
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      .naikit-sidebar {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+      }
+
+      .naikit-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        background-color: var(--naikit-bg-secondary);
+        border-bottom: 1px solid var(--naikit-border);
+      }
+
+      .naikit-mode-toggle {
+        display: flex;
+        border-radius: 4px;
+        overflow: hidden;
+      }
+
+      .naikit-mode-button {
+        padding: 8px 12px;
+        background-color: var(--naikit-bg-tertiary);
+        border: none;
+        color: var(--naikit-text-secondary);
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .naikit-mode-button:hover {
+        background-color: var(--naikit-accent-hover);
+      }
+
+      .naikit-mode-button.active {
+        background-color: var(--naikit-accent);
+        color: white;
+      }
+
+      .naikit-main-content {
+        flex: 1;
+        overflow-y: auto;
+        padding: 10px;
+      }
+
+      .naikit-prompt-section {
+        margin-bottom: 20px;
+      }
+
+      .naikit-prompt-tabs {
+        display: flex;
+        margin-bottom: 10px;
+      }
+
+      .naikit-tab {
+        padding: 8px 12px;
+        background-color: var(--naikit-bg-secondary);
+        border: none;
+        border-bottom: 2px solid transparent;
+        color: var(--naikit-text-secondary);
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .naikit-tab:hover {
+        background-color: var(--naikit-bg-tertiary);
+      }
+
+      .naikit-tab.active {
+        border-bottom: 2px solid var(--naikit-accent);
+        color: var(--naikit-text-primary);
+      }
+
+      .naikit-editor-container {
+        border: 1px solid var(--naikit-border);
+        border-radius: 4px;
+        height: 200px;
+        position: relative;
+      }
+
+      .naikit-editor {
+        width: 100%;
+        height: 100%;
+        padding: 8px;
+        background-color: var(--naikit-bg-secondary);
+        color: var(--naikit-text-primary);
+        font-family: "Courier New", monospace;
+        font-size: 14px;
+        line-height: 1.5;
+        resize: none;
+        outline: none;
+        overflow-y: auto;
+      }
+
+      /* 컴포즈 모드의 요소 스타일 */
+      .naikit-sidebar.mode-compose .naikit-preset {
+        display: inline-block;
+        padding: 0 4px;
+        border-radius: 3px;
+        margin: 0 2px;
+      }
+
+      .naikit-sidebar.mode-compose .naikit-preset.wildcard {
+        background-color: var(--naikit-wildcard);
+        color: white;
+      }
+
+      .naikit-sidebar.mode-compose .naikit-preset.keyword {
+        background-color: var(--naikit-keyword);
+        color: white;
+      }
+
+      .naikit-sidebar.mode-compose .naikit-inline-wildcard {
+        display: inline-block;
+        background-color: var(--naikit-inline-wildcard);
+        color: black;
+        padding: 0 4px;
+        border-radius: 3px;
+        margin: 0 2px;
+      }
+
+      /* 파인튠 모드의 요소 스타일 */
+      .naikit-sidebar.mode-finetune .naikit-weight {
+        display: inline-block;
+        position: relative;
+        border-radius: 3px;
+        margin: 0 2px;
+        padding: 0 4px;
+      }
+
+      .naikit-sidebar.mode-finetune .naikit-weight.increase {
+        background-color: var(--naikit-weight-increase);
+        color: black;
+      }
+
+      .naikit-sidebar.mode-finetune .naikit-weight.decrease {
+        background-color: var(--naikit-weight-decrease);
+        color: black;
+      }
+
+      .naikit-sidebar.mode-finetune .naikit-weight-value {
+        position: absolute;
+        right: 0;
+        bottom: -16px;
+        font-size: 10px;
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 1px 3px;
+        border-radius: 2px;
+        display: none;
+      }
+
+      .naikit-sidebar.mode-finetune .naikit-weight:hover .naikit-weight-value {
+        display: block;
+      }
+
+      /* 강도에 따른 색상 변화 */
+      .naikit-sidebar.mode-finetune .naikit-weight.increase.intensity-1 {
+        background-color: rgba(142, 202, 230, 0.1);
+      }
+      .naikit-sidebar.mode-finetune .naikit-weight.increase.intensity-2 {
+        background-color: rgba(142, 202, 230, 0.2);
+      }
+      .naikit-sidebar.mode-finetune .naikit-weight.increase.intensity-3 {
+        background-color: rgba(142, 202, 230, 0.3);
+      }
+      .naikit-sidebar.mode-finetune .naikit-weight.increase.intensity-4 {
+        background-color: rgba(142, 202, 230, 0.4);
+      }
+      .naikit-sidebar.mode-finetune .naikit-weight.increase.intensity-5 {
+        background-color: rgba(142, 202, 230, 0.5);
+      }
+      .naikit-sidebar.mode-finetune .naikit-weight.increase.intensity-6 {
+        background-color: rgba(142, 202, 230, 0.6);
+      }
+      .naikit-sidebar.mode-finetune .naikit-weight.increase.intensity-7 {
+        background-color: rgba(142, 202, 230, 0.7);
+      }
+      .naikit-sidebar.mode-finetune .naikit-weight.increase.intensity-8 {
+        background-color: rgba(142, 202, 230, 0.8);
+      }
+      .naikit-sidebar.mode-finetune .naikit-weight.increase.intensity-9 {
+        background-color: rgba(142, 202, 230, 0.9);
+      }
+      .naikit-sidebar.mode-finetune .naikit-weight.increase.intensity-10 {
+        background-color: rgba(142, 202, 230, 1);
+      }
+
+      .naikit-sidebar.mode-finetune .naikit-weight.decrease.intensity-1 {
+        background-color: rgba(253, 138, 138, 0.1);
+      }
+      .naikit-sidebar.mode-finetune .naikit-weight.decrease.intensity-2 {
+        background-color: rgba(253, 138, 138, 0.2);
+      }
+      .naikit-sidebar.mode-finetune .naikit-weight.decrease.intensity-3 {
+        background-color: rgba(253, 138, 138, 0.3);
+      }
+      .naikit-sidebar.mode-finetune .naikit-weight.decrease.intensity-4 {
+        background-color: rgba(253, 138, 138, 0.4);
+      }
+      .naikit-sidebar.mode-finetune .naikit-weight.decrease.intensity-5 {
+        background-color: rgba(253, 138, 138, 0.5);
+      }
+      .naikit-sidebar.mode-finetune .naikit-weight.decrease.intensity-6 {
+        background-color: rgba(253, 138, 138, 0.6);
+      }
+      .naikit-sidebar.mode-finetune .naikit-weight.decrease.intensity-7 {
+        background-color: rgba(253, 138, 138, 0.7);
+      }
+      .naikit-sidebar.mode-finetune .naikit-weight.decrease.intensity-8 {
+        background-color: rgba(253, 138, 138, 0.8);
+      }
+      .naikit-sidebar.mode-finetune .naikit-weight.decrease.intensity-9 {
+        background-color: rgba(253, 138, 138, 0.9);
+      }
+      .naikit-sidebar.mode-finetune .naikit-weight.decrease.intensity-10 {
+        background-color: rgba(253, 138, 138, 1);
+      }
+
+      .naikit-character-section {
+        margin-bottom: 20px;
+      }
+
+      .naikit-add-character {
+        background-color: var(--naikit-accent);
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-bottom: 10px;
+      }
+
+      .naikit-add-character:hover {
+        background-color: var(--naikit-accent-hover);
+      }
+
+      .naikit-character-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .naikit-character-item {
+        border: 1px solid var(--naikit-border);
+        border-radius: 4px;
+        padding: 10px;
+        background-color: var(--naikit-bg-secondary);
+        cursor: pointer;
+      }
+
+      .naikit-character-item:hover,
+      .naikit-character-item.active {
+        background-color: var(--naikit-bg-tertiary);
+      }
+
+      .naikit-character-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .naikit-character-actions {
+        display: flex;
+        gap: 5px;
+      }
+
+      .naikit-character-actions button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 14px;
+      }
+
+      .naikit-settings-panel {
+        padding: 10px;
+        background-color: var(--naikit-bg-secondary);
+        border-radius: 4px;
+        margin-bottom: 20px;
+      }
+
+      .naikit-image-settings,
+      .naikit-preset-panel {
+        margin-bottom: 15px;
+      }
+
+      .naikit-resolution-control,
+      .naikit-batch-control {
+        margin-bottom: 10px;
+      }
+
+      .naikit-resolution-control label,
+      .naikit-batch-control label {
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      .naikit-resolution-select,
+      .naikit-batch-size {
+        width: 100%;
+        padding: 8px;
+        background-color: var(--naikit-bg-tertiary);
+        color: var(--naikit-text-primary);
+        border: 1px solid var(--naikit-border);
+        border-radius: 4px;
+      }
+
+      .naikit-custom-resolution {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin-top: 5px;
+      }
+
+      .naikit-width,
+      .naikit-height {
+        width: 80px;
+        padding: 8px;
+        background-color: var(--naikit-bg-tertiary);
+        color: var(--naikit-text-primary);
+        border: 1px solid var(--naikit-border);
+        border-radius: 4px;
+      }
+
+      .naikit-preset-actions {
+        display: flex;
+        gap: 5px;
+        margin-bottom: 10px;
+      }
+
+      .naikit-preset-actions button {
+        flex: 1;
+        padding: 8px;
+        background-color: var(--naikit-bg-tertiary);
+        color: var(--naikit-text-primary);
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      .naikit-preset-actions button:hover {
+        background-color: var(--naikit-accent);
+      }
+
+      .naikit-generation-panel {
+        padding: 15px 10px;
+        border-top: 1px solid var(--naikit-border);
+      }
+
+      .naikit-generate {
+        width: 100%;
+        padding: 10px;
+        background-color: var(--naikit-accent);
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        margin-bottom: 10px;
+      }
+
+      .naikit-generate:hover {
+        background-color: var(--naikit-accent-hover);
+      }
+
+      .naikit-auto-generation {
+        margin-top: 10px;
+      }
+
+      .naikit-auto-start,
+      .naikit-auto-stop {
+        width: 100%;
+        padding: 8px;
+        background-color: var(--naikit-bg-tertiary);
+        color: var(--naikit-text-primary);
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-bottom: 5px;
+      }
+
+      .naikit-auto-start:hover {
+        background-color: var(--naikit-success);
+      }
+
+      .naikit-auto-stop:hover {
+        background-color: var(--naikit-error);
+      }
+
+      .naikit-auto-settings {
+        display: flex;
+        gap: 10px;
+        margin-top: 5px;
+      }
+
+      .naikit-auto-settings label {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+      }
+
+      .naikit-auto-settings input {
+        padding: 5px;
+        background-color: var(--naikit-bg-tertiary);
+        color: var(--naikit-text-primary);
+        border: 1px solid var(--naikit-border);
+        border-radius: 4px;
+        margin-top: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="naikit-sidebar-root"></div>
+    <script src="sidebar.js" type="module"></script>
+  </body>
+</html>

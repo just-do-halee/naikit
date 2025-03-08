@@ -1,0 +1,55 @@
+/* NovelAI 페이지에 직접 적용되는 CSS */
+.naikit-sidebar-container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 350px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: row;
+  transition: transform 0.3s ease;
+}
+
+.naikit-sidebar-container.collapsed {
+  transform: translateX(-100%);
+}
+
+.naikit-sidebar-frame {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background-color: #1f1f2f;
+}
+
+.naikit-toggle-button {
+  position: absolute;
+  right: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 40px;
+  background-color: #2c2c44;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 0 4px 4px 0;
+  font-size: 12px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.naikit-toggle-button:hover {
+  background-color: #3c3c64;
+}
+
+/* NovelAI 인터페이스 조정 */
+.novelai-image-generation-interface {
+  margin-left: 350px;
+  transition: margin-left 0.3s ease;
+}
+
+.naikit-sidebar-container.collapsed + .novelai-image-generation-interface {
+  margin-left: 0;
+}
