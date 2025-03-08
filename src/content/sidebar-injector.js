@@ -42,9 +42,7 @@ export class SidebarInjector {
    */
   async inject() {
     // 기존 인터페이스 요소 찾기
-    const promptsSection = await this.waitForElement(
-      ".novelai-image-generation-interface"
-    );
+    const promptsSection = await this.waitForElement("#__next");
 
     if (!promptsSection) {
       throw new Error("NovelAI 프롬프트 섹션을 찾을 수 없습니다");
