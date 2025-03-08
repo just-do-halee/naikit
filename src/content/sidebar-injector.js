@@ -58,6 +58,7 @@ export class SidebarInjector {
     this.sidebarFrame.id = "naikit-sidebar-frame";
     this.sidebarFrame.className = "naikit-sidebar-frame";
     this.sidebarFrame.src = chrome.runtime.getURL("sidebar.html");
+    console.log("사이드바 HTML URL:", this.sidebarFrame.src);
     this.sidebarFrame.allowTransparency = true;
 
     // 토글 버튼 생성

@@ -40,6 +40,7 @@ export default defineConfig({
           {
             resources: [
               "sidebar.html",
+              "assets/sidebar.js",
               "src/sidebar/**",
               "src/styles/*.css",
               "icons/*.png",
@@ -52,11 +53,10 @@ export default defineConfig({
         host_permissions: ["*://*.novelai.net/*"],
       },
 
-      // 확장 진입점 설정
+      // 확장 진입점 설정 (sidebar 제외 - 아래 rollupOptions에서 처리)
       entrypoints: {
         background: "src/background/index.js",
         content: "src/content/index.js",
-        sidebar: "src/sidebar/index.js",
       },
     }),
   ],
@@ -75,5 +75,14 @@ export default defineConfig({
     outDir: "dist",
     // 번들 최적화
     minify: process.env.NODE_ENV === "production",
+    rollupOptions: {
+      input: {
+        sidebar: path.resolve(__dirname, "src/sidebar/index.js")
+      },
+      output: {
+        entryFileNames: "assets/[name].js",
+        chunkFileNames: "assets/[name].[hash].js"
+      }
+    }
   },
 });
