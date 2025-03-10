@@ -1,0 +1,49 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-bg-primary text-white font-sans;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply px-4 py-2 rounded-md transition-colors;
+  }
+
+  .btn-primary {
+    @apply bg-brand text-white hover:bg-brand-dark;
+  }
+
+  .btn-secondary {
+    @apply bg-surface text-white hover:bg-surface-raised;
+  }
+
+  .segment-text {
+    @apply inline;
+  }
+
+  .segment-weighted-increase {
+    @apply inline rounded px-1 py-0.5 bg-opacity-30 bg-weight-increase text-white;
+  }
+
+  .segment-weighted-decrease {
+    @apply inline rounded px-1 py-0.5 bg-opacity-30 bg-weight-decrease text-white;
+  }
+
+  .segment-preset-wildcard {
+    @apply inline rounded px-1 py-0.5 bg-opacity-20 bg-wildcard border border-wildcard-border text-white;
+  }
+
+  .segment-preset-keyword {
+    @apply inline rounded px-1 py-0.5 bg-opacity-20 bg-keyword border border-keyword-border text-white;
+  }
+
+  .segment-inline-wildcard {
+    @apply inline rounded px-1 py-0.5 bg-opacity-15 bg-wildcard border border-dashed border-wildcard-border border-opacity-50 text-white;
+  }
+}
