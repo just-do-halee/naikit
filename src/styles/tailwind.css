@@ -1,0 +1,73 @@
+/* Tailwind CSS v4 directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Basic Styles using Tailwind v4 compatible syntax */
+@layer components {
+  .prompt-editor {
+    display: flex;
+    flex-direction: column;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(229, 231, 235); /* gray-200 equivalent */
+    border-radius: 0.375rem;
+    overflow: hidden;
+  }
+
+  .editor-toolbar {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    background-color: rgb(249, 250, 251); /* gray-50 equivalent */
+    color: rgb(107, 114, 128); /* gray-500 equivalent */
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: rgb(229, 231, 235); /* gray-200 equivalent */
+  }
+
+  .toolbar-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0.25rem;
+    color: rgb(107, 114, 128); /* gray-500 equivalent */
+  }
+
+  .toolbar-btn:hover {
+    background-color: rgb(243, 244, 246); /* gray-100 equivalent */
+  }
+
+  .toolbar-btn.active {
+    background-color: rgb(229, 231, 235); /* gray-200 equivalent */
+    color: rgb(59, 130, 246); /* blue-500 equivalent */
+  }
+
+  .editor-content {
+    padding: 1rem;
+    min-height: 8rem;
+    background-color: white;
+    color: black;
+  }
+
+  .prompt-section {
+    margin-bottom: 0.75rem;
+  }
+
+  .prompt-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    background-color: rgb(55, 65, 81); /* gray-700 equivalent */
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+    font-size: 0.875rem;
+    color: white;
+  }
+}

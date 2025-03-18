@@ -1,0 +1,100 @@
+/**
+ * Segment Component Styles
+ */
+
+/* Base segment styles */
+.segment {
+  transition: all 0.2s ease;
+  margin: 1px 0;
+  border-radius: 0.25rem;
+  position: relative;
+  cursor: pointer;
+}
+
+.segment:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.segment-selected {
+  box-shadow: 0 0 0 1px rgb(99, 179, 237);
+  outline: none;
+}
+
+.segment-nested {
+  margin-left: 0.5rem;
+}
+
+/* Text segment styles */
+.text-segment {
+  display: inline-block;
+  padding: 0.125rem 0.25rem;
+  line-height: 1.25;
+}
+
+/* Weight level indicators */
+.weight-level-0 {
+  opacity: 0.5;
+}
+
+.weight-level-1 {
+  opacity: 0.65;
+}
+
+.weight-level-2 {
+  opacity: 0.8;
+}
+
+.weight-level-3 {
+  opacity: 0.9;
+}
+
+.weight-level-4 {
+  opacity: 1;
+  font-weight: 500;
+}
+
+/* Weighted segment styles */
+.weighted-segment {
+  background-color: rgba(30, 41, 59, 0.4);
+}
+
+.weighted-segment-compose {
+  transition: background-color 0.2s ease;
+}
+
+.weighted-segment-compose:hover {
+  background-color: rgba(30, 41, 59, 0.2);
+}
+
+/* Preset segment styles */
+.preset-segment {
+  transition: all 0.2s ease;
+}
+
+.preset-segment-compose:hover {
+  opacity: 0.9;
+}
+
+/* Inline wildcard segment styles */
+.inline-wildcard-segment {
+  transition: all 0.2s ease;
+}
+
+.inline-wildcard-segment-compose:hover {
+  opacity: 0.9;
+}
+
+/* Container styling */
+.segment-container {
+  padding: 0.25rem;
+}
+
+/* Animation for dropdowns */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.preset-dropdown, .inline-dropdown {
+  animation: fadeIn 0.2s ease-out;
+}
